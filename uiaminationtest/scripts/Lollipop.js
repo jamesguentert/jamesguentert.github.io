@@ -4,7 +4,7 @@ function setup() {
 
 function draw() {
   background(220);
-lollipop(200,200,100,0,100)
+lollipop(mouseX,mouseY,100,0,100)
 }
 function lollipop(x,y,color1,color2,color3) {
 fill(0)
