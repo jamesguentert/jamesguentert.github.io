@@ -18,8 +18,5 @@ if (mouseY>=225) y=225;
 else if (mouseY<=175) y=175;
 else y=mouseY;
 ellipse(x1,y,25)
-if (mouseX>=325) x2=325;
-else if (mouseX<=275) x2=275;
-else x2=mouseX;
-ellipse(x2,y,25)
+ellipse(x1+200,y,25)
 }
