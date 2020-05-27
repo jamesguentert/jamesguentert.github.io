@@ -14,7 +14,7 @@ a {
   text-align: center;
 
 }
-a:hover {
+.base:hover {
 background-color: #800;
 }
 canvas {
@@ -33,87 +33,56 @@ text-align: center;
   left: 0;
   right: 0;
 }
-.b1 {
-  border: 1px solid #900;
-  padding: 10px;
-  display: inline-block;
-  max-width: 200px;
-  color: #000;
-  background-color: #900;
-  border-radius: 10px;
-  text-decoration: none;
-  text-align: center;
+.base {
+border: 1px solid
+padding: 10px;
+display: inline-block;
+border-radius: 10px;
+text-decoration: none;
+text-align: center;
+max-width: 200px;
+color: #000;
 }
-.b1:hover {
+.P1 {
+  border: 1px solid #900;
+  background-color: #900;
+}
+.P1:hover {
 background-color: #f00;
 }
-.b2 {
+.P2 {
     border: 1px solid #b83;
-    padding: 10px;
-    display: inline-block;
-    max-width: 200px;
-    color: #000;
     background-color: #b83;
-    border-radius: 10px;
-    text-decoration: none;
-    text-align: center;
 }
-.b2:hover {
+
+.P2:hover {
 background-color: #f80;
 }
-.b3 {
+.P3 {
     border: 1px solid #ca3;
-    padding: 10px;
-    display: inline-block;
-    max-width: 200px;
-    color: #000;
     background-color: #ca3;
-    border-radius: 10px;
-    text-decoration: none;
-    text-align: center;
 }
-.b3:hover {
+.P3:hover {
 background-color: #ff0;
 }
-.b4 {
+.P4 {
     border: 1px solid #8c2;
-    padding: 10px;
-    display: inline-block;
-    max-width: 200px;
-    color: #000;
     background-color: #8c2;
-    border-radius: 10px;
-    text-decoration: none;
-    text-align: center;
 }
-.b4:hover {
+.P4:hover {
 background-color: #bf0;
 }
-.b5 {
+.P5 {
     border: 1px solid #3b0;
-    padding: 10px;
-    display: inline-block;
-    max-width: 200px;
-    color: #000;
     background-color: #3b0;
-    border-radius: 10px;
-    text-decoration: none;
-    text-align: center;
 }
-.b5:hover {
+.P5:hover {
 background-color: #4f0;
 }
-.b6 {
+.P6 {
     border: 1px solid #609;
-    padding: 10px;
-    display: inline-block;
-    max-width: 200px;
-    color: #000;
     background-color: #609;
-    border-radius: 10px;
-    text-decoration: none;
-    text-align: center;
 }
-.b6:hover {
+.P6:hover {
 background-color: #909;
 }
