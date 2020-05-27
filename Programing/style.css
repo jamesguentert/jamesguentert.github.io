@@ -1,14 +1,35 @@
 body {
+  background-color: #333;
   font-family: sans-serif;
 }
 a {
-  border: 1px solid blue;
+  border: 1px solid #600;
   padding: 10px;
-
-  margin: 10px;
   display: inline-block;
-  color: white;
-  background-color: blue;
+  max-width: 200px;
+  color: #fff;
+  background-color: #600;
   border-radius: 10px;
   text-decoration: none;
+  text-align: center;
+
+}
+a:hover {
+background-color: #800;
+}
+canvas {
+margin: auto;
+display: block;
+cursor: pointer;
+}
+.info{
+color: #fff;
+text-align: center;
+}
+.navblock{
+  position: fixed;
+  text-align: center;
+  bottom: 10%;
+  left: 0;
+  right: 0;
 }
