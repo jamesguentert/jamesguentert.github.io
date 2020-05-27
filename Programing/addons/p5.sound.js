@@ -50,7 +50,7 @@
  */
 
 /**
- *  p5.sound 
+ *  p5.sound
  *  https://p5js.org/reference/#/libraries/p5.sound
  *
  *  From the Processing Foundation and contributors
@@ -70,7 +70,7 @@
  *   Web Audio API: http://w3.org/TR/webaudio/
  */
 
- (function(modules) { 
+ (function(modules) {
  	var installedModules = {};
  	function __webpack_require__(moduleId) {
  		if(installedModules[moduleId]) {
@@ -134,32 +134,32 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(17)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (audiocontext) {
   var Master = function Master() {
     this.input = audiocontext.createGain();
-    this.output = audiocontext.createGain(); 
+    this.output = audiocontext.createGain();
 
     this.limiter = audiocontext.createDynamicsCompressor();
     this.limiter.threshold.value = -3;
     this.limiter.ratio.value = 20;
     this.limiter.knee.value = 1;
     this.audiocontext = audiocontext;
-    this.output.disconnect(); 
+    this.output.disconnect();
 
-    this.input.connect(this.limiter); 
+    this.input.connect(this.limiter);
 
-    this.limiter.connect(this.output); 
+    this.limiter.connect(this.output);
 
     this.meter = audiocontext.createGain();
     this.fftMeter = audiocontext.createGain();
     this.output.connect(this.meter);
-    this.output.connect(this.fftMeter); 
+    this.output.connect(this.fftMeter);
 
-    this.output.connect(this.audiocontext.destination); 
+    this.output.connect(this.audiocontext.destination);
 
-    this.soundArray = []; 
+    this.soundArray = [];
 
-    this.parts = []; 
+    this.parts = [];
 
     this.extensions = [];
-  }; 
+  };
 
 
   var p5sound = new Master();
@@ -228,7 +228,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
    */
 
 
-  p5.prototype.soundOut = p5.soundOut = p5sound; 
+  p5.prototype.soundOut = p5.soundOut = p5sound;
 
   p5.soundOut._silentNode = p5sound.audiocontext.createGain();
   p5.soundOut._silentNode.gain.value = 0;
@@ -309,7 +309,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
     this._drywet.connect(this.output);
 
-    this.connect(); 
+    this.connect();
 
     p5sound.soundArray.push(this);
   };
@@ -531,7 +531,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
   var midiToFreq = p5.prototype.midiToFreq = function (m) {
     return 440 * Math.pow(2, (m - 69) / 12.0);
-  }; 
+  };
 
 
   var noteToFreq = function noteToFreq(note) {
@@ -599,7 +599,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 
   p5.prototype.soundFormats = function () {
-    p5sound.extensions = []; 
+    p5sound.extensions = [];
 
     for (var i = 0; i < arguments.length; i++) {
       arguments[i] = arguments[i].toLowerCase();
@@ -616,18 +616,18 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     for (var i = 0; i < p5sound.soundArray.length; i++) {
       p5sound.soundArray[i].dispose();
     }
-  }; 
+  };
 
 
   p5.prototype.registerMethod('remove', p5.prototype.disposeSound);
 
   p5.prototype._checkFileFormats = function (paths) {
-    var path; 
+    var path;
 
     if (typeof paths === 'string') {
-      path = paths; 
+      path = paths;
 
-      var extTest = path.split('.').pop(); 
+      var extTest = path.split('.').pop();
 
       if (['mp3', 'wav', 'ogg', 'm4a', 'aac'].indexOf(extTest) > -1) {
         if (p5.prototype.isFileSupported(extTest)) {
@@ -658,7 +658,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
             }
           }
         }
-      } 
+      }
       else {
           for (var i = 0; i < p5sound.extensions.length; i++) {
             var extension = p5sound.extensions[i];
@@ -670,7 +670,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
             }
           }
         }
-    } 
+    }
     else if (_typeof(paths) === 'object') {
         for (var i = 0; i < paths.length; i++) {
           var extension = paths[i].split('.').pop();
@@ -707,12 +707,12 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     math.connect(nextChain);
     o.mathOps[thisChain] = math;
     return o;
-  }; 
+  };
 
 
   function convertToWav(audioBuffer) {
     var leftChannel, rightChannel;
-    leftChannel = audioBuffer.getChannelData(0); 
+    leftChannel = audioBuffer.getChannelData(0);
 
     if (audioBuffer.numberOfChannels > 1) {
       rightChannel = audioBuffer.getChannelData(1);
@@ -720,27 +720,27 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       rightChannel = leftChannel;
     }
 
-    var interleaved = interleave(leftChannel, rightChannel); 
+    var interleaved = interleave(leftChannel, rightChannel);
 
     var buffer = new window.ArrayBuffer(44 + interleaved.length * 2);
-    var view = new window.DataView(buffer); 
+    var view = new window.DataView(buffer);
 
     writeUTFBytes(view, 0, 'RIFF');
     view.setUint32(4, 36 + interleaved.length * 2, true);
-    writeUTFBytes(view, 8, 'WAVE'); 
+    writeUTFBytes(view, 8, 'WAVE');
 
     writeUTFBytes(view, 12, 'fmt ');
     view.setUint32(16, 16, true);
-    view.setUint16(20, 1, true); 
+    view.setUint16(20, 1, true);
 
     view.setUint16(22, 2, true);
     view.setUint32(24, p5sound.audiocontext.sampleRate, true);
     view.setUint32(28, p5sound.audiocontext.sampleRate * 4, true);
     view.setUint16(32, 4, true);
-    view.setUint16(34, 16, true); 
+    view.setUint16(34, 16, true);
 
     writeUTFBytes(view, 36, 'data');
-    view.setUint32(40, interleaved.length * 2, true); 
+    view.setUint32(40, interleaved.length * 2, true);
 
     var lng = interleaved.length;
     var index = 44;
@@ -752,7 +752,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     }
 
     return view;
-  } 
+  }
 
 
   function interleave(leftChannel, rightChannel) {
@@ -778,7 +778,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   }
 
   function safeBufferSize(idealBufferSize) {
-    var bufferSize = idealBufferSize; 
+    var bufferSize = idealBufferSize;
 
     var tempAudioWorkletNode = new AudioWorkletNode(p5sound.audiocontext, processorNames.soundFileProcessor);
 
@@ -840,14 +840,14 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     err.name = name;
     err.originalStack = err.stack + errorTrace;
     tempStack = err.stack + errorTrace;
-    err.failedPath = failedPath; 
+    err.failedPath = failedPath;
 
     var splitStack = tempStack.split('\n');
     splitStack = splitStack.filter(function (ln) {
       return !ln.match(/(p5.|native code|globalInit)/g);
     });
     err.stack = splitStack.join('\n');
-    return err; 
+    return err;
   };
 
   return CustomError;
@@ -962,7 +962,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
 
   p5.Filter = function (type) {
-    Effect.call(this); 
+    Effect.call(this);
 
     /**
       *  The p5.Filter is built with a
@@ -978,7 +978,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
     if (type) {
       this.setType(type);
-    } 
+    }
 
 
     this._on = true;
@@ -1211,7 +1211,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 
 global.TONE_SILENCE_VERSION_LOGGING = true;
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(35), __webpack_require__(12), __webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (StartAudioContext, Context, Tone) {
-  var audiocontext = new window.AudioContext(); 
+  var audiocontext = new window.AudioContext();
 
   Tone.context.dispose();
   Tone.setContext(audiocontext);
@@ -1449,28 +1449,28 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       freq = f;
     }
 
-    this.started = false; 
+    this.started = false;
 
     this.phaseAmount = undefined;
     this.oscillator = p5sound.audiocontext.createOscillator();
-    this.f = freq || 440.0; 
+    this.f = freq || 440.0;
 
     this.oscillator.type = type || 'sine';
-    this.oscillator.frequency.setValueAtTime(this.f, p5sound.audiocontext.currentTime); 
+    this.oscillator.frequency.setValueAtTime(this.f, p5sound.audiocontext.currentTime);
 
     this.output = p5sound.audiocontext.createGain();
-    this._freqMods = []; 
+    this._freqMods = [];
 
     this.output.gain.value = 0.5;
     this.output.gain.setValueAtTime(0.5, p5sound.audiocontext.currentTime);
-    this.oscillator.connect(this.output); 
+    this.oscillator.connect(this.output);
 
     this.panPosition = 0.0;
-    this.connection = p5sound.input; 
+    this.connection = p5sound.input;
 
-    this.panner = new p5.Panner(this.output, this.connection, 1); 
+    this.panner = new p5.Panner(this.output, this.connection, 1);
 
-    this.mathOps = [this.output]; 
+    this.mathOps = [this.output];
 
     p5sound.soundArray.push(this);
   };
@@ -1496,22 +1496,22 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
     if (!this.started) {
       var freq = f || this.f;
-      var type = this.oscillator.type; 
+      var type = this.oscillator.type;
 
       if (this.oscillator) {
         this.oscillator.disconnect();
         delete this.oscillator;
-      } 
+      }
 
 
       this.oscillator = p5sound.audiocontext.createOscillator();
       this.oscillator.frequency.value = Math.abs(freq);
-      this.oscillator.type = type; 
+      this.oscillator.type = type;
 
       this.oscillator.connect(this.output);
       time = time || 0;
       this.oscillator.start(time + p5sound.audiocontext.currentTime);
-      this.freqNode = this.oscillator.frequency; 
+      this.freqNode = this.oscillator.frequency;
 
       for (var i in this._freqMods) {
         if (typeof this._freqMods[i].connect !== 'undefined') {
@@ -1573,7 +1573,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     } else {
       return this.output.gain;
     }
-  }; 
+  };
 
 
   p5.Oscillator.prototype.fade = p5.Oscillator.prototype.amp;
@@ -1627,7 +1627,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       var now = p5sound.audiocontext.currentTime;
       var rampTime = rampTime || 0;
       var tFromNow = tFromNow || 0;
-      var t = now + tFromNow + rampTime; 
+      var t = now + tFromNow + rampTime;
 
       if (rampTime === 0) {
         this.oscillator.frequency.setValueAtTime(val, tFromNow + now);
@@ -1637,7 +1637,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
         } else {
           this.oscillator.frequency.linearRampToValueAtTime(val, tFromNow + rampTime + now);
         }
-      } 
+      }
 
 
       if (this.phaseAmount) {
@@ -1648,7 +1648,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
         val = val.output;
       }
 
-      val.connect(this.oscillator.frequency); 
+      val.connect(this.oscillator.frequency);
 
       this._freqMods.push(val);
     } else {
@@ -1736,7 +1736,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
   p5.Oscillator.prototype.getPan = function () {
     return this.panPosition;
-  }; 
+  };
 
 
   p5.Oscillator.prototype.dispose = function () {
@@ -1749,7 +1749,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       this.disconnect();
       this.panner = null;
       this.oscillator = null;
-    } 
+    }
 
 
     if (this.osc2) {
@@ -1773,26 +1773,26 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     this.phaseAmount = p;
 
     if (!this.dNode) {
-      this.dNode = p5sound.audiocontext.createDelay(); 
+      this.dNode = p5sound.audiocontext.createDelay();
 
       this.oscillator.disconnect();
       this.oscillator.connect(this.dNode);
       this.dNode.connect(this.output);
-    } 
+    }
 
 
     this.dNode.delayTime.setValueAtTime(delayAmt, now);
-  }; 
+  };
 
 
   var sigChain = function sigChain(o, mathObj, thisChain, nextChain, type) {
-    var chainSource = o.oscillator; 
+    var chainSource = o.oscillator;
 
     for (var i in o.mathOps) {
       if (o.mathOps[i] instanceof type) {
         chainSource.disconnect();
         o.mathOps[i].dispose();
-        thisChain = i; 
+        thisChain = i;
 
         if (thisChain < o.mathOps.length - 2) {
           nextChain = o.mathOps[i + 1];
@@ -1802,7 +1802,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
     if (thisChain === o.mathOps.length - 1) {
       o.mathOps.push(nextChain);
-    } 
+    }
 
 
     if (i > 0) {
@@ -1884,8 +1884,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     var scale = new Scale(mapOutMin, mapOutMax);
     var thisChain = this.mathOps.length - 1;
     var nextChain = this.output;
-    return sigChain(this, scale, thisChain, nextChain, Scale); 
-  }; 
+    return sigChain(this, scale, thisChain, nextChain, Scale);
+  };
 
   /**
    *  Constructor: <code>new p5.SinOsc()</code>.
@@ -2048,14 +2048,14 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     this.oscillator = new p5.Oscillator();
     this.env = new p5.Envelope();
     this.env.setRange(1, 0);
-    this.env.setExp(true); 
+    this.env.setExp(true);
 
-    this.setADSR(0.02, 0.25, 0.05, 0.35); 
+    this.setADSR(0.02, 0.25, 0.05, 0.35);
 
     this.oscillator.disconnect();
     this.oscillator.connect(this.output);
     this.env.disconnect();
-    this.env.setInput(this.output.gain); 
+    this.env.setInput(this.output.gain);
 
     this.oscillator.output.gain.value = 1.0;
     this.oscillator.start();
@@ -2480,7 +2480,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
      * @property notes
      */
 
-    this.notes = {}; 
+    this.notes = {};
 
     this._newest = 0;
     this._oldest = 0;
@@ -2506,7 +2506,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
     this._voicesInUse = new TimelineSignal(0);
     this.output = p5sound.audiocontext.createGain();
-    this.connect(); 
+    this.connect();
 
     this._allocateVoices();
 
@@ -2675,41 +2675,41 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
 
   p5.PolySynth.prototype.noteAttack = function (_note, _velocity, secondsFromNow) {
-    var secondsFromNow = ~~secondsFromNow; 
+    var secondsFromNow = ~~secondsFromNow;
 
-    var acTime = p5sound.audiocontext.currentTime + secondsFromNow; 
+    var acTime = p5sound.audiocontext.currentTime + secondsFromNow;
 
     var note = noteToFreq(_note);
     var velocity = _velocity || 0.1;
-    var currentVoice; 
+    var currentVoice;
 
     if (this.notes[note] && this.notes[note].getValueAtTime(acTime) !== null) {
       this.noteRelease(note, 0);
-    } 
+    }
 
 
     if (this._voicesInUse.getValueAtTime(acTime) < this.maxVoices) {
       currentVoice = Math.max(~~this._voicesInUse.getValueAtTime(acTime), 0);
-    } 
+    }
     else {
         currentVoice = this._oldest;
         var oldestNote = p5.prototype.freqToMidi(this.audiovoices[this._oldest].oscillator.freq().value);
         this.noteRelease(oldestNote);
         this._oldest = (this._oldest + 1) % (this.maxVoices - 1);
-      } 
+      }
 
 
     this.notes[note] = new TimelineSignal();
-    this.notes[note].setValueAtTime(currentVoice, acTime); 
+    this.notes[note].setValueAtTime(currentVoice, acTime);
 
     var previousVal = this._voicesInUse._searchBefore(acTime) === null ? 0 : this._voicesInUse._searchBefore(acTime).value;
 
-    this._voicesInUse.setValueAtTime(previousVal + 1, acTime); 
+    this._voicesInUse.setValueAtTime(previousVal + 1, acTime);
 
 
     this._updateAfter(acTime, 1);
 
-    this._newest = currentVoice; 
+    this._newest = currentVoice;
 
     if (typeof velocity === 'number') {
       var maxRange = 1 / this._voicesInUse.getValueAtTime(acTime) * 2;
@@ -2788,7 +2788,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
   p5.PolySynth.prototype.noteRelease = function (_note, secondsFromNow) {
     var now = p5sound.audiocontext.currentTime;
     var tFromNow = secondsFromNow || 0;
-    var t = now + tFromNow; 
+    var t = now + tFromNow;
 
     if (!_note) {
       this.audiovoices.forEach(function (voice) {
@@ -2803,7 +2803,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       }
 
       return;
-    } 
+    }
 
 
     var note = noteToFreq(_note);
@@ -2813,7 +2813,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     } else {
       var previousVal = Math.max(~~this._voicesInUse.getValueAtTime(t).value, 1);
 
-      this._voicesInUse.setValueAtTime(previousVal - 1, t); 
+      this._voicesInUse.setValueAtTime(previousVal - 1, t);
 
 
       if (previousVal > 0) {
@@ -2973,7 +2973,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () {
   (function () {
     function fixSetTarget(param) {
-      if (!param) 
+      if (!param)
         return;
       if (!param.setTargetAtTime) param.setTargetAtTime = param.setTargetValueAtTime;
     }
@@ -3098,7 +3098,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     if (window.hasOwnProperty('webkitOfflineAudioContext') && !window.hasOwnProperty('OfflineAudioContext')) {
       window.OfflineAudioContext = window.webkitOfflineAudioContext;
     }
-  })(window); 
+  })(window);
 
 
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
@@ -3193,11 +3193,11 @@ function loadAudioWorkletModules() {
 }
 
 p5.prototype.registerMethod('init', function () {
-  if (initializedAudioWorklets) return; 
+  if (initializedAudioWorklets) return;
 
   if (!this.preload && !window.preload) {
     this.preload = function () {};
-  } 
+  }
 
 
   this._incrementPreload();
@@ -3243,7 +3243,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 !(__WEBPACK_AMD_DEFINE_RESULT__ = (function (require) {
   var p5sound = __webpack_require__(1);
 
-  var ac = p5sound.audiocontext; 
+  var ac = p5sound.audiocontext;
 
   if (typeof ac.createStereoPanner !== 'undefined') {
     p5.Panner = function (input, output) {
@@ -3256,7 +3256,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       var time = tFromNow || 0;
       var t = ac.currentTime + time;
       this.stereoPanner.pan.linearRampToValueAtTime(val, t);
-    }; 
+    };
 
 
     p5.Panner.prototype.inputChannels = function () {};
@@ -3277,7 +3277,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       this.left = ac.createGain();
       this.right = ac.createGain();
       this.left.channelInterpretation = 'discrete';
-      this.right.channelInterpretation = 'discrete'; 
+      this.right.channelInterpretation = 'discrete';
 
       if (numInputChannels > 1) {
         this.splitter = ac.createChannelSplitter(2);
@@ -3293,7 +3293,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       this.left.connect(this.output, 0, 1);
       this.right.connect(this.output, 0, 0);
       this.output.connect(output);
-    }; 
+    };
 
 
     p5.Panner.prototype.pan = function (val, tFromNow) {
@@ -3426,7 +3426,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
           throw 'Unable to load file because the File API is not supported';
         }
-      } 
+      }
 
 
       if (paths.file) {
@@ -3434,7 +3434,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }
 
       this.file = paths;
-    } 
+    }
 
 
     this._onended = function () {};
@@ -3442,38 +3442,38 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     this._looping = false;
     this._playing = false;
     this._paused = false;
-    this._pauseTime = 0; 
+    this._pauseTime = 0;
 
     this._cues = [];
-    this._cueIDCounter = 0; 
+    this._cueIDCounter = 0;
 
     this._lastPos = 0;
     this._counterNode = null;
-    this._workletNode = null; 
+    this._workletNode = null;
 
-    this.bufferSourceNodes = []; 
+    this.bufferSourceNodes = [];
 
     this.bufferSourceNode = null;
     this.buffer = null;
     this.playbackRate = 1;
     this.input = p5sound.audiocontext.createGain();
     this.output = p5sound.audiocontext.createGain();
-    this.reversed = false; 
+    this.reversed = false;
 
     this.startTime = 0;
     this.endTime = null;
-    this.pauseTime = 0; 
+    this.pauseTime = 0;
 
-    this.mode = 'sustain'; 
+    this.mode = 'sustain';
 
-    this.startMillis = null; 
+    this.startMillis = null;
 
     this.panPosition = 0.0;
-    this.panner = new p5.Panner(this.output, p5sound.input, 2); 
+    this.panner = new p5.Panner(this.output, p5sound.input, 2);
 
     if (this.url || this.file) {
       this.load(onload, onerror);
-    } 
+    }
 
 
     p5sound.soundArray.push(this);
@@ -3485,7 +3485,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     }
 
     this._clearOnEnd = _clearOnEnd.bind(this);
-  }; 
+  };
 
 
   p5.prototype.registerPreloadMethod('loadSound', p5.prototype);
@@ -3579,7 +3579,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       request.onload = function () {
         if (request.status === 200) {
           if (!self.panner) return;
-          ac.decodeAudioData(request.response, 
+          ac.decodeAudioData(request.response,
           function (buff) {
             if (!self.panner) return;
             self.buffer = buff;
@@ -3588,7 +3588,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
             if (callback) {
               callback(self);
             }
-          }, 
+          },
           function () {
             if (!self.panner) return;
             var err = new CustomError('decodeAudioData', errorTrace, self.url);
@@ -3601,7 +3601,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
               console.error(msg + '\n The error stack trace includes: \n' + err.stack);
             }
           });
-        } 
+        }
         else {
             if (!self.panner) return;
             var err = new CustomError('loadSound', errorTrace, self.url);
@@ -3614,7 +3614,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
               console.error(msg + '\n The error stack trace includes: \n' + err.stack);
             }
           }
-      }; 
+      };
 
 
       request.onerror = function () {
@@ -3656,14 +3656,14 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
       reader.readAsArrayBuffer(this.file);
     }
-  }; 
+  };
 
 
   p5.SoundFile.prototype._updateProgress = function (evt) {
     if (evt.lengthComputable) {
       var percentComplete = evt.loaded / evt.total * 0.99;
 
-      this._whileLoading(percentComplete, evt); 
+      this._whileLoading(percentComplete, evt);
 
     } else {
       this._whileLoading('size unknown');
@@ -3721,25 +3721,25 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
     if (typeof amp !== 'undefined') {
       this.setVolume(amp);
-    } 
+    }
 
 
     if (this.buffer) {
-      this._pauseTime = 0; 
+      this._pauseTime = 0;
 
       if (this.mode === 'restart' && this.buffer && this.bufferSourceNode) {
         this.bufferSourceNode.stop(time);
 
         this._counterNode.stop(time);
-      } 
+      }
 
 
       if (this.mode === 'untildone' && this.isPlaying()) {
         return;
-      } 
+      }
 
 
-      this.bufferSourceNode = this._initSourceNode(); 
+      this.bufferSourceNode = this._initSourceNode();
 
       delete this._counterNode;
       this._counterNode = this._initCounterNode();
@@ -3756,7 +3756,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
       if (duration) {
         duration = duration <= this.buffer.duration - cueStart ? duration : this.buffer.duration;
-      } 
+      }
 
 
       if (this._paused) {
@@ -3770,15 +3770,15 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }
 
       this._playing = true;
-      this._paused = false; 
+      this._paused = false;
 
       this.bufferSourceNodes.push(this.bufferSourceNode);
       this.bufferSourceNode._arrayIndex = this.bufferSourceNodes.length - 1;
       this.bufferSourceNode.addEventListener('ended', this._clearOnEnd);
-    } 
+    }
     else {
         throw 'not ready to play file, buffer has yet to load. Try preload()';
-      } 
+      }
 
 
     this.bufferSourceNode.loop = this._looping;
@@ -3835,14 +3835,14 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 
   p5.SoundFile.prototype.playMode = function (str) {
-    var s = str.toLowerCase(); 
+    var s = str.toLowerCase();
 
     if (s === 'restart' && this.buffer && this.bufferSourceNode) {
       for (var i = 0; i < this.bufferSourceNodes.length - 1; i++) {
         var now = p5sound.audiocontext.currentTime;
         this.bufferSourceNodes[i].stop(now);
       }
-    } 
+    }
 
 
     if (s === 'restart' || s === 'sustain' || s === 'untildone') {
@@ -3903,7 +3903,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
       this._counterNode.stop(pTime);
 
-      this._pauseTime = this.currentTime(); 
+      this._pauseTime = this.currentTime();
     } else {
       this._pauseTime = 0;
     }
@@ -4115,10 +4115,10 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     } else {
       return this.output.gain;
     }
-  }; 
+  };
 
 
-  p5.SoundFile.prototype.amp = p5.SoundFile.prototype.setVolume; 
+  p5.SoundFile.prototype.amp = p5.SoundFile.prototype.setVolume;
 
   p5.SoundFile.prototype.fade = p5.SoundFile.prototype.setVolume;
 
@@ -4261,7 +4261,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     }
 
     return this.playbackRate;
-  }; 
+  };
 
 
   p5.SoundFile.prototype.setPitch = function (num) {
@@ -4414,7 +4414,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
               var value = chan[j];
 
               if (value > max) {
-                max = value; 
+                max = value;
               } else if (-value > max) {
                 max = value;
               }
@@ -4471,7 +4471,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
       for (var i = 0; i < numChannels; i++) {
         this.buffer.getChannelData(i).reverse();
-      } 
+      }
 
 
       this.reversed = !this.reversed;
@@ -4508,7 +4508,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   };
 
   p5.SoundFile.prototype.dispose = function () {
-    var now = p5sound.audiocontext.currentTime; 
+    var now = p5sound.audiocontext.currentTime;
 
     var index = p5sound.soundArray.indexOf(this);
     p5sound.soundArray.splice(index, 1);
@@ -4636,10 +4636,10 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       channel.set(buf[channelNum]);
     }
 
-    this.buffer = newBuffer; 
+    this.buffer = newBuffer;
 
     this.panner.inputChannels(numChannels);
-  }; 
+  };
 
 
   var _createCounterBuffer = function _createCounterBuffer(buffer) {
@@ -4652,7 +4652,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     }
 
     return audioBuf;
-  }; 
+  };
 
 
   p5.SoundFile.prototype._initCounterNode = function () {
@@ -4661,7 +4661,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     var self = this;
     var now = ac.currentTime;
     var cNode = ac.createBufferSource();
-    var workletBufferSize = safeBufferSize(256); 
+    var workletBufferSize = safeBufferSize(256);
 
     if (self._workletNode) {
       self._workletNode.disconnect();
@@ -4681,11 +4681,11 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
           return;
         }
 
-        _this._lastPos = event.data.position; 
+        _this._lastPos = event.data.position;
 
         _this._onTimeUpdate(self._lastPos);
       }
-    }; 
+    };
 
 
     cNode.buffer = _createCounterBuffer(self.buffer);
@@ -4695,7 +4695,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     self._workletNode.connect(p5.soundOut._silentNode);
 
     return cNode;
-  }; 
+  };
 
 
   p5.SoundFile.prototype._initSourceNode = function () {
@@ -4733,47 +4733,47 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     var initialThreshold = _initThreshold || 0.9,
         threshold = initialThreshold,
         minThreshold = _minThreshold || 0.22,
-        minPeaks = _minPeaks || 200; 
+        minPeaks = _minPeaks || 200;
 
-    var offlineContext = new window.OfflineAudioContext(1, bufLen, sampleRate); 
+    var offlineContext = new window.OfflineAudioContext(1, bufLen, sampleRate);
 
     var source = offlineContext.createBufferSource();
-    source.buffer = buffer; 
+    source.buffer = buffer;
 
     var filter = offlineContext.createBiquadFilter();
     filter.type = 'lowpass';
     source.connect(filter);
-    filter.connect(offlineContext.destination); 
+    filter.connect(offlineContext.destination);
 
     source.start(0);
-    offlineContext.startRendering(); 
+    offlineContext.startRendering();
 
     offlineContext.oncomplete = function (e) {
       if (!self.panner) return;
       var filteredBuffer = e.renderedBuffer;
-      var bufferData = filteredBuffer.getChannelData(0); 
+      var bufferData = filteredBuffer.getChannelData(0);
 
       do {
         allPeaks = getPeaksAtThreshold(bufferData, threshold);
         threshold -= 0.005;
-      } while (Object.keys(allPeaks).length < minPeaks && threshold >= minThreshold); 
+      } while (Object.keys(allPeaks).length < minPeaks && threshold >= minThreshold);
 
 
-      var intervalCounts = countIntervalsBetweenNearbyPeaks(allPeaks); 
+      var intervalCounts = countIntervalsBetweenNearbyPeaks(allPeaks);
 
-      var groups = groupNeighborsByTempo(intervalCounts, filteredBuffer.sampleRate); 
+      var groups = groupNeighborsByTempo(intervalCounts, filteredBuffer.sampleRate);
 
       var topTempos = groups.sort(function (intA, intB) {
         return intB.count - intA.count;
-      }).splice(0, 5); 
+      }).splice(0, 5);
 
-      this.tempo = topTempos[0].tempo; 
+      this.tempo = topTempos[0].tempo;
 
       var bpmVariance = 5;
       var tempoPeaks = getPeaksAtTopTempo(allPeaks, topTempos[0].tempo, filteredBuffer.sampleRate, bpmVariance);
       callback(tempoPeaks);
     };
-  }; 
+  };
 
 
   var Peak = function Peak(amp, i) {
@@ -4781,7 +4781,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     this.amplitude = amp;
     this.tempos = [];
     this.intervals = [];
-  }; 
+  };
 
 
   function getPeaksAtThreshold(data, threshold) {
@@ -4792,7 +4792,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       if (data[i] > threshold) {
         var amp = data[i];
         var peak = new Peak(amp, i);
-        peaksObj[i] = peak; 
+        peaksObj[i] = peak;
 
         i += 6000;
       }
@@ -4801,7 +4801,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     }
 
     return peaksObj;
-  } 
+  }
 
 
   function countIntervalsBetweenNearbyPeaks(peaksObj) {
@@ -4816,11 +4816,11 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         if (startPeak && endPeak) {
           var startPos = startPeak.sampleIndex;
           var endPos = endPeak.sampleIndex;
-          var interval = endPos - startPos; 
+          var interval = endPos - startPos;
 
           if (interval > 0) {
             startPeak.intervals.push(interval);
-          } 
+          }
 
 
           var foundInterval = intervalCounts.some(function (intervalCount) {
@@ -4828,7 +4828,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
               intervalCount.count++;
               return intervalCount;
             }
-          }); 
+          });
 
           if (!foundInterval) {
             intervalCounts.push({
@@ -4841,7 +4841,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     }
 
     return intervalCounts;
-  } 
+  }
 
 
   function groupNeighborsByTempo(intervalCounts, sampleRate) {
@@ -4869,12 +4869,12 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }
     });
     return tempoCounts;
-  } 
+  }
 
 
   function getPeaksAtTopTempo(peaksObj, tempo, sampleRate, bpmVariance) {
     var peaksAtTopTempo = [];
-    var peaksArray = Object.keys(peaksObj).sort(); 
+    var peaksArray = Object.keys(peaksObj).sort();
 
     for (var i = 0; i < peaksArray.length; i++) {
       var key = peaksArray[i];
@@ -4888,7 +4888,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
           peaksAtTopTempo.push(peak.sampleIndex / sampleRate);
         }
       }
-    } 
+    }
 
 
     peaksAtTopTempo = peaksAtTopTempo.filter(function (peakTime, index, arr) {
@@ -4899,13 +4899,13 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }
     });
     return peaksAtTopTempo;
-  } 
+  }
 
 
   function mapTempo(theoreticalTempo) {
     if (!isFinite(theoreticalTempo) || theoreticalTempo === 0) {
       return;
-    } 
+    }
 
 
     while (theoreticalTempo < 90) {
@@ -4991,7 +4991,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     var id = this._cueIDCounter++;
     var cue = new Cue(callback, time, id, val);
 
-    this._cues.push(cue); 
+    this._cues.push(cue);
 
 
     return id;
@@ -5031,8 +5031,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 
   p5.SoundFile.prototype.clearCues = function () {
-    this._cues = []; 
-  }; 
+    this._cues = [];
+  };
 
 
   p5.SoundFile.prototype._onTimeUpdate = function (position) {
@@ -5140,17 +5140,17 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     return new Blob([dataView], {
       type: 'audio/wav'
     });
-  }; 
+  };
 
 
   function _clearOnEnd(e) {
     var thisBufferSourceNode = e.target;
-    var soundFile = this; 
+    var soundFile = this;
 
     thisBufferSourceNode._playing = false;
-    thisBufferSourceNode.removeEventListener('ended', soundFile._clearOnEnd); 
+    thisBufferSourceNode.removeEventListener('ended', soundFile._clearOnEnd);
 
-    soundFile._onended(soundFile); 
+    soundFile._onended(soundFile);
 
 
     soundFile.bufferSourceNodes.map(function (_, i) {
@@ -5228,7 +5228,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
 
   p5.Amplitude = function (smoothing) {
-    this.bufferSize = safeBufferSize(2048); 
+    this.bufferSize = safeBufferSize(2048);
 
     this.audiocontext = p5sound.audiocontext;
     this._workletNode = new AudioWorkletNode(this.audiocontext, processorNames.amplitudeProcessor, {
@@ -5251,11 +5251,11 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
         this.stereoVol = event.data.stereoVol;
         this.stereoVolNorm = event.data.stereoVolNorm;
       }
-    }.bind(this); 
+    }.bind(this);
 
 
     this.input = this._workletNode;
-    this.output = this.audiocontext.createGain(); 
+    this.output = this.audiocontext.createGain();
 
     this.volume = 0;
     this.volNorm = 0;
@@ -5265,11 +5265,11 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
     this._workletNode.connect(this.output);
 
-    this.output.gain.value = 0; 
+    this.output.gain.value = 0;
 
-    this.output.connect(this.audiocontext.destination); 
+    this.output.connect(this.audiocontext.destination);
 
-    p5sound.meter.connect(this._workletNode); 
+    p5sound.meter.connect(this._workletNode);
 
     p5sound.soundArray.push(this);
   };
@@ -5325,23 +5325,23 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
     if (smoothing) {
       this._workletNode.parameters.get('smoothing').value = smoothing;
-    } 
+    }
 
 
     if (source == null) {
       console.log('Amplitude input source is not ready! Connecting to master output instead');
       p5sound.meter.connect(this._workletNode);
-    } 
+    }
     else if (source instanceof p5.Signal) {
         source.output.connect(this._workletNode);
-      } 
+      }
       else if (source) {
           source.connect(this._workletNode);
 
           this._workletNode.disconnect();
 
           this._workletNode.connect(this.output);
-        } 
+        }
         else {
             p5sound.meter.connect(this._workletNode);
           }
@@ -5605,20 +5605,20 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
         configurable: true,
         enumerable: true
       }
-    }); 
+    });
 
     this.smooth(smoothing);
-    this.bins = bins || 1024; 
+    this.bins = bins || 1024;
 
     p5sound.fftMeter.connect(this.analyser);
     this.freqDomain = new Uint8Array(this.analyser.frequencyBinCount);
-    this.timeDomain = new Uint8Array(this.analyser.frequencyBinCount); 
+    this.timeDomain = new Uint8Array(this.analyser.frequencyBinCount);
 
     this.bass = [20, 140];
     this.lowMid = [140, 400];
     this.mid = [400, 2600];
     this.highMid = [2600, 5200];
-    this.treble = [5200, 14000]; 
+    this.treble = [5200, 14000];
 
     p5sound.soundArray.push(this);
   };
@@ -5676,7 +5676,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       if (typeof arguments[i] === 'string') {
         mode = arguments[i];
       }
-    } 
+    }
 
 
     if (mode && !p5.prototype._isSafari()) {
@@ -5858,12 +5858,12 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       var lowIndex = Math.round(frequency1 / nyquist * this.freqDomain.length);
       var highIndex = Math.round(frequency2 / nyquist * this.freqDomain.length);
       var total = 0;
-      var numFrequencies = 0; 
+      var numFrequencies = 0;
 
       for (var i = lowIndex; i <= highIndex; i++) {
         total += this.freqDomain[i];
         numFrequencies += 1;
-      } 
+      }
 
 
       var toReturn = total / numFrequencies;
@@ -5871,7 +5871,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     } else {
       throw 'invalid input for getEnergy()';
     }
-  }; 
+  };
 
 
   p5.FFT.prototype.getFreq = function (freq1, freq2) {
@@ -6006,17 +6006,17 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
 
   p5.FFT.prototype.linAverages = function (N) {
-    var N = N || 16; 
+    var N = N || 16;
 
     var spectrum = this.freqDomain;
     var spectrumLength = spectrum.length;
     var spectrumStep = Math.floor(spectrumLength / N);
-    var linearAverages = new Array(N); 
+    var linearAverages = new Array(N);
 
     var groupIndex = 0;
 
     for (var specIndex = 0; specIndex < spectrumLength; specIndex++) {
-      linearAverages[groupIndex] = linearAverages[groupIndex] !== undefined ? (linearAverages[groupIndex] + spectrum[specIndex]) / 2 : spectrum[specIndex]; 
+      linearAverages[groupIndex] = linearAverages[groupIndex] !== undefined ? (linearAverages[groupIndex] + spectrum[specIndex]) / 2 : spectrum[specIndex];
 
       if (specIndex % spectrumStep === spectrumStep - 1) {
         groupIndex++;
@@ -6044,12 +6044,12 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     var nyquist = p5sound.audiocontext.sampleRate / 2;
     var spectrum = this.freqDomain;
     var spectrumLength = spectrum.length;
-    var logAverages = new Array(octaveBands.length); 
+    var logAverages = new Array(octaveBands.length);
 
     var octaveIndex = 0;
 
     for (var specIndex = 0; specIndex < spectrumLength; specIndex++) {
-      var specIndexFrequency = Math.round(specIndex * nyquist / this.freqDomain.length); 
+      var specIndexFrequency = Math.round(specIndex * nyquist / this.freqDomain.length);
 
       if (specIndexFrequency > octaveBands[octaveIndex].hi) {
         octaveIndex++;
@@ -6077,9 +6077,9 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
 
   p5.FFT.prototype.getOctaveBands = function (N, fCtr0) {
-    var N = N || 3; 
+    var N = N || 3;
 
-    var fCtr0 = fCtr0 || 15.625; 
+    var fCtr0 = fCtr0 || 15.625;
 
     var octaveBands = [];
     var lastFrequencyBand = {
@@ -6100,7 +6100,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     }
 
     return octaveBands;
-  }; 
+  };
 
 
   var freqToFloat = function freqToFloat(fft) {
@@ -6202,9 +6202,9 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
 
   p5.Signal = function (value) {
-    var s = new Signal(value); 
+    var s = new Signal(value);
 
-    return s; 
+    return s;
   };
   /**
    *  Fade to value, for smooth transitions
@@ -6235,7 +6235,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
   Mult.prototype.setInput = Signal.prototype.setInput;
   Add.prototype.setInput = Signal.prototype.setInput;
-  Scale.prototype.setInput = Signal.prototype.setInput; 
+  Scale.prototype.setInput = Signal.prototype.setInput;
 
   /**
    *  Add a constant value to this audio signal,
@@ -6250,7 +6250,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
    */
 
   Signal.prototype.add = function (num) {
-    var add = new Add(num); 
+    var add = new Add(num);
 
     this.connect(add);
     return add;
@@ -6272,7 +6272,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
    */
 
   Signal.prototype.mult = function (num) {
-    var mult = new Mult(num); 
+    var mult = new Mult(num);
 
     this.connect(mult);
     return mult;
@@ -6434,29 +6434,29 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     this.output = p5sound.audiocontext.createGain();
     this.control = new TimelineSignal();
 
-    this._init(); 
+    this._init();
 
 
-    this.control.connect(this.output); 
+    this.control.connect(this.output);
 
-    this.connection = null; 
+    this.connection = null;
 
-    this.mathOps = [this.control]; 
+    this.mathOps = [this.control];
 
-    this.isExponential = false; 
+    this.isExponential = false;
 
-    this.sourceToClear = null; 
+    this.sourceToClear = null;
 
-    this.wasTriggered = false; 
+    this.wasTriggered = false;
 
     p5sound.soundArray.push(this);
-  }; 
+  };
 
 
   p5.Envelope.prototype._init = function () {
     var now = p5sound.audiocontext.currentTime;
     var t = now;
-    this.control.setTargetAtTime(0.00001, t, .001); 
+    this.control.setTargetAtTime(0.00001, t, .001);
 
     this._setRampAD(this.aTime, this.dTime);
   };
@@ -6518,7 +6518,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     this.dTime = t2 || 0;
     this.dLevel = l2 || 0;
     this.rTime = t3 || 0;
-    this.rLevel = l3 || 0; 
+    this.rLevel = l3 || 0;
 
     this._setRampAD(t1, t2);
   };
@@ -6583,11 +6583,11 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
   p5.Envelope.prototype.setADSR = function (aTime, dTime, sPercent, rTime) {
     this.aTime = aTime;
-    this.dTime = dTime || 0; 
+    this.dTime = dTime || 0;
 
     this.sPercent = sPercent || 0;
     this.dLevel = typeof sPercent !== 'undefined' ? sPercent * (this.aLevel - this.rLevel) + this.rLevel : 0;
-    this.rTime = rTime || 0; 
+    this.rTime = rTime || 0;
 
     this._setRampAD(aTime, dTime);
   };
@@ -6638,26 +6638,26 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
   p5.Envelope.prototype.setRange = function (aLevel, rLevel) {
     this.aLevel = aLevel || 1;
-    this.rLevel = rLevel || 0; 
-  }; 
+    this.rLevel = rLevel || 0;
+  };
 
 
   p5.Envelope.prototype._setRampAD = function (t1, t2) {
     this._rampAttackTime = this.checkExpInput(t1);
     this._rampDecayTime = this.checkExpInput(t2);
-    var TCDenominator = 1.0; 
+    var TCDenominator = 1.0;
 
     TCDenominator = Math.log(1.0 / this.checkExpInput(1.0 - this._rampHighPercentage));
     this._rampAttackTC = t1 / this.checkExpInput(TCDenominator);
     TCDenominator = Math.log(1.0 / this._rampLowPercentage);
     this._rampDecayTC = t2 / this.checkExpInput(TCDenominator);
-  }; 
+  };
 
 
   p5.Envelope.prototype.setRampPercentages = function (p1, p2) {
     this._rampHighPercentage = this.checkExpInput(p1);
     this._rampLowPercentage = this.checkExpInput(p2);
-    var TCDenominator = 1.0; 
+    var TCDenominator = 1.0;
 
     TCDenominator = Math.log(1.0 / this.checkExpInput(1.0 - this._rampHighPercentage));
     this._rampAttackTC = this._rampAttackTime / this.checkExpInput(TCDenominator);
@@ -6695,7 +6695,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
   p5.Envelope.prototype.setExp = function (isExp) {
     this.isExponential = isExp;
-  }; 
+  };
 
 
   p5.Envelope.prototype.checkExpInput = function (value) {
@@ -6843,7 +6843,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       if (this.connection !== unit) {
         this.connect(unit);
       }
-    } 
+    }
 
 
     var valToSet = this.control.getValueAtTime(t);
@@ -6852,7 +6852,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       this.control.exponentialRampToValueAtTime(this.checkExpInput(valToSet), t);
     } else {
       this.control.linearRampToValueAtTime(valToSet, t);
-    } 
+    }
 
 
     t += this.aTime;
@@ -6867,7 +6867,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       valToSet = this.control.getValueAtTime(t);
       this.control.cancelScheduledValues(t);
       this.control.linearRampToValueAtTime(valToSet, t);
-    } 
+    }
 
 
     t += this.dTime;
@@ -6950,7 +6950,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       if (this.connection !== unit) {
         this.connect(unit);
       }
-    } 
+    }
 
 
     var valToSet = this.control.getValueAtTime(t);
@@ -6959,7 +6959,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       this.control.exponentialRampToValueAtTime(this.checkExpInput(valToSet), t);
     } else {
       this.control.linearRampToValueAtTime(valToSet, t);
-    } 
+    }
 
 
     t += this.rTime;
@@ -7037,39 +7037,39 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     var tFromNow = secondsFromNow || 0;
     var t = now + tFromNow;
     var destination1 = this.checkExpInput(v1);
-    var destination2 = typeof v2 !== 'undefined' ? this.checkExpInput(v2) : undefined; 
+    var destination2 = typeof v2 !== 'undefined' ? this.checkExpInput(v2) : undefined;
 
     if (unit) {
       if (this.connection !== unit) {
         this.connect(unit);
       }
-    } 
+    }
 
 
-    var currentVal = this.checkExpInput(this.control.getValueAtTime(t)); 
+    var currentVal = this.checkExpInput(this.control.getValueAtTime(t));
 
     if (destination1 > currentVal) {
       this.control.setTargetAtTime(destination1, t, this._rampAttackTC);
       t += this._rampAttackTime;
-    } 
+    }
     else if (destination1 < currentVal) {
         this.control.setTargetAtTime(destination1, t, this._rampDecayTC);
         t += this._rampDecayTime;
-      } 
+      }
 
 
-    if (destination2 === undefined) return; 
+    if (destination2 === undefined) return;
 
     if (destination2 > destination1) {
       this.control.setTargetAtTime(destination2, t, this._rampAttackTC);
-    } 
+    }
     else if (destination2 < destination1) {
         this.control.setTargetAtTime(destination2, t, this._rampDecayTC);
       }
   };
 
   p5.Envelope.prototype.connect = function (unit) {
-    this.connection = unit; 
+    this.connection = unit;
 
     if (unit instanceof p5.Oscillator || unit instanceof p5.SoundFile || unit instanceof p5.AudioIn || unit instanceof p5.Reverb || unit instanceof p5.Noise || unit instanceof p5.Filter || unit instanceof p5.Delay) {
       unit = unit.output.gain;
@@ -7090,7 +7090,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     if (this.output) {
       this.output.disconnect();
     }
-  }; 
+  };
 
   /**
    *  Add a value to the p5.Oscillator's output amplitude,
@@ -7151,7 +7151,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     var thisChain = this.mathOps.length;
     var nextChain = this.output;
     return p5.prototype._mathChain(this, scale, thisChain, nextChain, Scale);
-  }; 
+  };
 
 
   p5.Envelope.prototype.dispose = function () {
@@ -7167,7 +7167,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     for (var i = 1; i < this.mathOps.length; i++) {
       this.mathOps[i].dispose();
     }
-  }; 
+  };
 
 
   p5.Env = function (t1, l1, t2, l2, t3, l3) {
@@ -7236,27 +7236,27 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
 
   p5.Pulse = function (freq, w) {
-    p5.Oscillator.call(this, freq, 'sawtooth'); 
+    p5.Oscillator.call(this, freq, 'sawtooth');
 
-    this.w = w || 0; 
+    this.w = w || 0;
 
-    this.osc2 = new p5.SawOsc(freq); 
+    this.osc2 = new p5.SawOsc(freq);
 
-    this.dNode = p5sound.audiocontext.createDelay(); 
+    this.dNode = p5sound.audiocontext.createDelay();
 
     this.dcOffset = createDCOffset();
     this.dcGain = p5sound.audiocontext.createGain();
     this.dcOffset.connect(this.dcGain);
-    this.dcGain.connect(this.output); 
+    this.dcGain.connect(this.output);
 
     this.f = freq || 440;
     var mW = this.w / this.oscillator.frequency.value;
     this.dNode.delayTime.value = mW;
-    this.dcGain.gain.value = 1.7 * (0.5 - this.w); 
+    this.dcGain.gain.value = 1.7 * (0.5 - this.w);
 
     this.osc2.disconnect();
     this.osc2.panner.disconnect();
-    this.osc2.amp(-1); 
+    this.osc2.amp(-1);
 
     this.osc2.output.connect(this.dNode);
     this.dNode.connect(this.output);
@@ -7277,7 +7277,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
   p5.Pulse.prototype.width = function (w) {
     if (typeof w === 'number') {
       if (w <= 1.0 && w >= 0.0) {
-        this.w = w; 
+        this.w = w;
 
         var mW = this.w / this.oscillator.frequency.value;
         this.dNode.delayTime.value = mW;
@@ -7305,18 +7305,18 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       this.oscillator.frequency.setValueAtTime(freq, now);
       this.oscillator.type = type;
       this.oscillator.connect(this.output);
-      this.oscillator.start(t + now); 
+      this.oscillator.start(t + now);
 
       this.osc2.oscillator = p5sound.audiocontext.createOscillator();
       this.osc2.oscillator.frequency.setValueAtTime(freq, t + now);
       this.osc2.oscillator.type = type;
       this.osc2.oscillator.connect(this.osc2.output);
       this.osc2.start(t + now);
-      this.freqNode = [this.oscillator.frequency, this.osc2.oscillator.frequency]; 
+      this.freqNode = [this.oscillator.frequency, this.osc2.oscillator.frequency];
 
       this.dcOffset = createDCOffset();
       this.dcOffset.connect(this.dcGain);
-      this.dcOffset.start(t + now); 
+      this.dcOffset.start(t + now);
 
       if (this.mods !== undefined && this.mods.frequency !== undefined) {
         this.mods.frequency.connect(this.freqNode[0]);
@@ -7368,7 +7368,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       val.output.connect(this.osc2.oscillator.frequency);
       this.freqMod = val;
     }
-  }; 
+  };
 
 
   function createDCOffset() {
@@ -7425,7 +7425,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     this.buffer = assignType;
   };
 
-  p5.Noise.prototype = Object.create(p5.Oscillator.prototype); 
+  p5.Noise.prototype = Object.create(p5.Oscillator.prototype);
 
   var _whiteNoise = function () {
     var bufferSize = 2 * p5sound.audiocontext.sampleRate;
@@ -7456,7 +7456,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       b4 = 0.55000 * b4 + white * 0.5329522;
       b5 = -0.7616 * b5 - white * 0.0168980;
       noiseData[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
-      noiseData[i] *= 0.11; 
+      noiseData[i] *= 0.11;
 
       b6 = white * 0.115926;
     }
@@ -7543,7 +7543,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
   };
 
   p5.Noise.prototype.dispose = function () {
-    var now = p5sound.audiocontext.currentTime; 
+    var now = p5sound.audiocontext.currentTime;
 
     var index = p5sound.soundArray.indexOf(this);
     p5sound.soundArray.splice(index, 1);
@@ -7576,7 +7576,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 var __WEBPACK_AMD_DEFINE_RESULT__;
 
 !(__WEBPACK_AMD_DEFINE_RESULT__ = (function (require) {
-  var p5sound = __webpack_require__(1); 
+  var p5sound = __webpack_require__(1);
 
 
   p5sound.inputSources = [];
@@ -7670,7 +7670,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
     if (!window.MediaStreamTrack || !window.navigator.mediaDevices || !window.navigator.mediaDevices.getUserMedia) {
       errorCallback ? errorCallback() : window.alert('This browser does not support MediaStreamTrack and mediaDevices');
-    } 
+    }
 
 
     p5sound.soundArray.push(this);
@@ -7702,7 +7702,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
     if (this.stream) {
       this.stop();
-    } 
+    }
 
 
     var audioSource = p5sound.inputSources[self.currentSource];
@@ -7711,7 +7711,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
         sampleRate: p5sound.audiocontext.sampleRate,
         echoCancellation: false
       }
-    }; 
+    };
 
     if (p5sound.inputSources[this.currentSource]) {
       constraints.audio.deviceId = audioSource.deviceId;
@@ -7719,10 +7719,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
     window.navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
       self.stream = stream;
-      self.enabled = true; 
+      self.enabled = true;
 
       self.mediaStream = p5sound.audiocontext.createMediaStreamSource(stream);
-      self.mediaStream.connect(self.output); 
+      self.mediaStream.connect(self.output);
 
       self.amplitude.setInput(self.output);
       if (successCallback) successCallback();
@@ -7785,7 +7785,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
   p5.AudioIn.prototype.disconnect = function () {
     if (this.output) {
-      this.output.disconnect(); 
+      this.output.disconnect();
 
       this.output.connect(this.amplitude.input);
     }
@@ -7932,13 +7932,13 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       console.log('set source to ', p5sound.inputSources[this.currentSource]);
     } else {
       console.log('unable to set input source');
-    } 
+    }
 
 
     if (this.stream && this.stream.active) {
       this.start();
     }
-  }; 
+  };
 
 
   p5.AudioIn.prototype.dispose = function () {
@@ -8099,7 +8099,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
 
   p5.EQ = function (_eqsize) {
-    Effect.call(this); 
+    Effect.call(this);
 
     _eqsize = _eqsize === 3 || _eqsize === 8 ? _eqsize : 3;
     var factor;
@@ -8153,7 +8153,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
   p5.EQ.prototype.process = function (src) {
     src.connect(this.input);
-  }; 
+  };
   //   * Set the frequency and gain of each band in the EQ. This method should be
   //   * called with 3 or 8 frequency and gain pairs, depending on the size of the EQ.
   //   * ex. eq.set(freq0, gain0, freq1, gain1, freq2, gain2);
@@ -8584,15 +8584,15 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 !(__WEBPACK_AMD_DEFINE_RESULT__ = (function (require) {
   var p5sound = __webpack_require__(1);
 
-  var Effect = __webpack_require__(4); 
+  var Effect = __webpack_require__(4);
   //   * listener is a class that can construct both a Spatial Panner
-  //   * and a Spatial Listener. The panner is based on the 
+  //   * and a Spatial Listener. The panner is based on the
   //   * Web Audio Spatial Panner Node
   //   * https://www.w3.org/TR/webaudio/#the-listenernode-interface
   //   * This panner is a spatial processing node that allows audio to be positioned
-  //   * and oriented in 3D space. 
+  //   * and oriented in 3D space.
   //   *
-  //   * The Listener modifies the properties of the Audio Context Listener. 
+  //   * The Listener modifies the properties of the Audio Context Listener.
   //   * Both objects types use the same methods. The default is a spatial panner.
   //   *
   //   * <code>p5.Panner3D</code> - Constructs a Spatial Panner<br/>
@@ -8612,7 +8612,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
   p5.Listener3D = function (type) {
     this.ac = p5sound.audiocontext;
     this.listener = this.ac.listener;
-  }; 
+  };
   //   * Connect an audio sorce
   //   * @param  {Object} src Input source
   //   */
@@ -8620,7 +8620,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
   p5.Listener3D.prototype.process = function (src) {
     src.connect(this.input);
-  }; 
+  };
   //   * Set the X,Y,Z position of the Panner
   //   * @param  {[Number]} xVal
   //   * @param  {[Number]} yVal
@@ -8635,7 +8635,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     this.positionY(yVal, time);
     this.positionZ(zVal, time);
     return [this.listener.positionX.value, this.listener.positionY.value, this.listener.positionZ.value];
-  }; 
+  };
   //   * Getter and setter methods for position coordinates
   //   * @return {Number}      [updated coordinate value]
   //   */
@@ -8681,9 +8681,9 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     }
 
     return this.listener.positionZ.value;
-  }; 
+  };
   //   * Overrides the listener orient() method because Listener has slightly
-  //   * different params. In human terms, Forward vectors are the direction the 
+  //   * different params. In human terms, Forward vectors are the direction the
   //   * nose is pointing. Up vectors are the direction of the top of the head.
   //   *
   //   * @method orient
@@ -8693,7 +8693,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
   //   * @param  {Number} xValU  Up vector X direction
   //   * @param  {Number} yValU  Up vector Y direction
   //   * @param  {Number} zValU  Up vector Z direction
-  //   * @param  {Number} time  
+  //   * @param  {Number} time
   //   * @return {Array}       All orienation params
   //   */
 
@@ -8722,7 +8722,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     this.upY(yValU, time);
     this.upZ(zValU, time);
     return [this.listener.upX, this.listener.upY, this.listener.upZ];
-  }; 
+  };
   //   * Getter and setter methods for orient coordinates
   //   * @return {Number}      [updated coordinate value]
   //   */
@@ -8914,7 +8914,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
     this._leftFilter.biquad.Q.setValueAtTime(0.3, this.ac.currentTime);
 
-    this._rightFilter.biquad.Q.setValueAtTime(0.3, this.ac.currentTime); 
+    this._rightFilter.biquad.Q.setValueAtTime(0.3, this.ac.currentTime);
 
 
     this.input.connect(this._split);
@@ -8929,11 +8929,11 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
     this._leftFilter.biquad.gain.setValueAtTime(1, this.ac.currentTime);
 
-    this._rightFilter.biquad.gain.setValueAtTime(1, this.ac.currentTime); 
+    this._rightFilter.biquad.gain.setValueAtTime(1, this.ac.currentTime);
 
 
     this.setType(0);
-    this._maxDelay = this.leftDelay.delayTime.maxValue; 
+    this._maxDelay = this.leftDelay.delayTime.maxValue;
 
     this.feedback(0.5);
   };
@@ -9028,7 +9028,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     } else if (typeof f === 'number') {
       this._leftGain.gain.value = f;
       this._rightGain.gain.value = f;
-    } 
+    }
 
 
     return this._leftGain.gain.value;
@@ -9104,7 +9104,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
         this._rightFilter.output.connect(this.rightDelay);
 
     }
-  }; 
+  };
 
   /**
    *  Set the output level of the delay effect.
@@ -9228,10 +9228,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
   p5.Reverb = function () {
     Effect.call(this);
 
-    this._initConvolverNode(); 
+    this._initConvolverNode();
 
 
-    this.input.gain.value = 0.5; 
+    this.input.gain.value = 0.5;
 
     this._seconds = 3;
     this._decay = 2;
@@ -9331,7 +9331,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     if (rebuild) {
       this._buildImpulse();
     }
-  }; 
+  };
 
   /**
    *  Set the output level of the reverb effect.
@@ -9392,7 +9392,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     Effect.prototype.dispose.apply(this);
 
     this._teardownConvolverNode();
-  }; 
+  };
 
   /**
    *  <p>p5.Convolver extends p5.Reverb. It can emulate the sound of real
@@ -9466,7 +9466,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
      *  @property {ConvolverNode} convolverNode
      */
 
-    this._initConvolverNode(); 
+    this._initConvolverNode();
 
 
     this.input.gain.value = 0.5;
@@ -9589,7 +9589,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
           if (callback) {
             callback(buffer);
           }
-        }, 
+        },
         function () {
           var err = new CustomError('decodeAudioData', errorTrace, self.url);
           var msg = 'AudioContext error at decodeAudioData for ' + self.url;
@@ -9601,7 +9601,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
             console.error(msg + '\n The error stack trace includes: \n' + err.stack);
           }
         });
-      } 
+      }
       else {
           var err = new CustomError('loadConvolver', errorTrace, self.url);
           var msg = 'Unable to load ' + self.url + '. The request status was: ' + request.status + ' (' + request.statusText + ')';
@@ -9613,7 +9613,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
             console.error(msg + '\n The error stack trace includes: \n' + err.stack);
           }
         }
-    }; 
+    };
 
 
     request.onerror = function () {
@@ -9771,7 +9771,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
   };
 
   p5.Convolver.prototype.dispose = function () {
-    p5.Reverb.prototype.dispose.apply(this); 
+    p5.Reverb.prototype.dispose.apply(this);
 
     for (var i in this.impulses) {
       if (this.impulses[i]) {
@@ -9789,7 +9789,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 var __WEBPACK_AMD_DEFINE_RESULT__;
 
 !(__WEBPACK_AMD_DEFINE_RESULT__ = (function (require) {
-  var p5sound = __webpack_require__(1); 
+  var p5sound = __webpack_require__(1);
 
 
   var Clock = __webpack_require__(27);
@@ -9799,7 +9799,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       'callback': this.ontick.bind(this)
     });
     this.syncedParts = [];
-    this.bpm = 120; 
+    this.bpm = 120;
 
     this._init();
 
@@ -9816,12 +9816,12 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     if (elapsedTime - this.tatumTime <= -0.02) {
       return;
     } else {
-      this.prevTick = tickTime; 
+      this.prevTick = tickTime;
 
       var self = this;
       this.syncedParts.forEach(function (thisPart) {
         if (!thisPart.isPlaying) return;
-        thisPart.incrementStep(secondsFromNow); 
+        thisPart.incrementStep(secondsFromNow);
 
         thisPart.phrases.forEach(function (thisPhrase) {
           var phraseArray = thisPhrase.sequence;
@@ -9852,13 +9852,13 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
   };
 
   p5.Metro.prototype._init = function () {
-    this.metroTicks = 0; 
-  }; 
+    this.metroTicks = 0;
+  };
 
 
   p5.Metro.prototype.resetSync = function (part) {
     this.syncedParts = [part];
-  }; 
+  };
 
 
   p5.Metro.prototype.pushSync = function (part) {
@@ -9879,7 +9879,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
   };
 
   p5.Metro.prototype.beatLength = function (tatums) {
-    this.tatums = 1 / tatums / 4; 
+    this.tatums = 1 / tatums / 4;
   };
 }).call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -10055,13 +10055,13 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
 
   p5.Part = function (steps, bLength) {
-    this.length = steps || 0; 
+    this.length = steps || 0;
 
     this.partStep = 0;
     this.phrases = [];
     this.isPlaying = false;
     this.noLoop();
-    this.tatums = bLength || 0.0625; 
+    this.tatums = bLength || 0.0625;
 
     this.metro = new p5.Metro();
 
@@ -10129,7 +10129,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
 
   p5.Part.prototype.loop = function (time) {
-    this.looping = true; 
+    this.looping = true;
 
     this.onended = function () {
       this.partStep = 0;
@@ -10147,7 +10147,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
 
   p5.Part.prototype.noLoop = function () {
-    this.looping = false; 
+    this.looping = false;
 
     this.onended = function () {
       this.stop();
@@ -10201,7 +10201,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
       throw 'invalid input. addPhrase accepts name, callback, array or a p5.Phrase';
     }
 
-    this.phrases.push(p); 
+    this.phrases.push(p);
 
     if (p.sequence.length > this.length) {
       this.length = p.sequence.length;
@@ -10283,7 +10283,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
   p5.Part.prototype.onStep = function (callback) {
     this.callback = callback;
-  }; 
+  };
 
   /**
    *  A Score consists of a series of Parts. The parts will
@@ -10649,7 +10649,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     if (typeof this._interval === 'number') {
       this.musicalTimeMode = false;
       return 1 / this._interval;
-    } 
+    }
     else if (typeof this._interval === 'string') {
         this.musicalTimeMode = true;
         return this._bpm / 60 / this._convertNotation(this._interval) * (this._timeSignature / 4);
@@ -11132,7 +11132,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     this.input = ac.createGain();
     this.output = ac.createGain();
     this._inputChannels = 2;
-    this._outputChannels = 2; 
+    this._outputChannels = 2;
 
     var workletBufferSize = safeBufferSize(1024);
     this._workletNode = new AudioWorkletNode(ac, processorNames.recorderProcessor, {
@@ -11157,12 +11157,12 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
      */
 
 
-    this._callback = function () {}; 
+    this._callback = function () {};
 
 
     this._workletNode.connect(p5.soundOut._silentNode);
 
-    this.setInput(); 
+    this.setInput();
 
     p5sound.soundArray.push(this);
   };
@@ -11379,11 +11379,11 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     this.framesSinceLastPeak = 0;
     this.decayRate = 0.95;
     this.threshold = threshold || 0.35;
-    this.cutoff = 0; 
+    this.cutoff = 0;
 
     this.cutoffMult = 1.5;
     this.energy = 0;
-    this.penergy = 0; 
+    this.penergy = 0;
 
     this.currentValue = 0;
     /**
@@ -11395,7 +11395,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
     this.isDetected = false;
     this.f1 = freq1 || 40;
-    this.f2 = freq2 || 20000; 
+    this.f2 = freq2 || 20000;
 
     this._onPeak = function () {};
   };
@@ -11417,7 +11417,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
     if (nrg > this.cutoff && nrg > this.threshold && nrg - this.penergy > 0) {
       this._onPeak();
 
-      this.isDetected = true; 
+      this.isDetected = true;
 
       this.cutoff = nrg * this.cutoffMult;
       this.framesSinceLastPeak = 0;
@@ -11590,10 +11590,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
   p5.Gain = function () {
     this.ac = p5sound.audiocontext;
     this.input = this.ac.createGain();
-    this.output = this.ac.createGain(); 
+    this.output = this.ac.createGain();
 
     this.input.gain.value = 0.5;
-    this.input.connect(this.output); 
+    this.input.connect(this.output);
 
     p5sound.soundArray.push(this);
   };
