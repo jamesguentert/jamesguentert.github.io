@@ -2,6 +2,9 @@ body {
   background-color: #333;
   font-family: sans-serif;
 }
+a:hover {
+  background-color: #800;
+}
 a {
   border: 1px solid #600;
   padding: 10px;
@@ -24,6 +27,10 @@ cursor: pointer;
 }
 .info{
 color: #fff;
+text-align: center;
+}
+.Bot{
+color: #bbb;
 text-align: center;
 }
 .navblock{
@@ -79,10 +86,10 @@ background-color: #bf0;
 .P5:hover {
 background-color: #4f0;
 }
-.P6 {
+.P0 {
     border: 1px solid #609;
     background-color: #609;
 }
-.P6:hover {
+.P0:hover {
 background-color: #909;
 }

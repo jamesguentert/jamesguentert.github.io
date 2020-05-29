@@ -1,4 +1,4 @@
-let colors= ['red','blue','green','magenta','yellow','cyan'];
+let colors= ['red','blue','green'];
 let randPallet;
 let bubble = [];
 let vel = 5;
@@ -6,14 +6,24 @@ let minusx = -(vel);
 let minusy = -(vel);
 let posx = vel;
 let posy = vel;
-
-
+var t = 0;
+var count = 0;
+pallet = ('red');
 function setup() {
   createCanvas(400, 400);
-for (var i=0;i<20;i+=1){
-bubble[i]=new Bubble(color[i]);
 }
 
+function mouseDragged() {
+  bubble[t]=new Bubble(mouseX,mouseY,5,0);
+t+=1
+}
+
+
+
+function doubleClicked() {
+  count+=1
+if (count>2)count=0
+  pallet=colors[count]
 }
 
 function draw() {
@@ -26,74 +36,42 @@ for (var i=0;i<bubbleLength;i+=1){
 
 
 }
+
 class Bubble {
-constructor() {
-  this.x=random(50,350);
-  this.y=random(50,350);
-  this.color=random(colors)
+constructor(x,y,r,o) {
+  this.x=x;
+  this.y=y;
+  this.color=random(colors);
+  this.r=random(25,50);
+  this.stroke=random(1,r);
+  this.opac=random(o,255)
 }
 
-  move() {
-//X velocity Difference
-if (0<this.x<200){
-minusx=MinusDecrease(this.x);
-posx=vel
-}
-else if (400>this.x>200){
-posx=PosDecrease(this.x)
-minusx=-vel
-}
-//Y velocity Difference
-if (0<this.y<200){
-minusy=MinusDecrease(this.y);
-posy=vel
-}
-else if (400>this.y>200){
-posy=PosDecrease(this.y)
-minusy=vel
-}
-
-  this.x+=random(minusx,posx);
-  this.y+=random(minusy,posy);
+move() {
+  this.x+=random(-2,2);
+  this.y+=random(-2,2);
 
 }
+
+
+
   show() {
-let avgPosition =(this.x+this.y)/2
-let positionDist= ((this.x-200)**2+(this.y-200)**2)**0.5
-  switch(this.color) {
+  switch(pallet) {
     case 'green':
-      stroke(positionDist,avgPosition,positionDist);
-        break;
-    case 'blue':
-      stroke(positionDist,positionDist,avgPosition);
-        break;
+      stroke(this.x,this.y,0,this.opac);
+    break;
     case 'red':
-      stroke(avgPosition,positionDist,positionDist);
-        break;
-    case 'magenta':
-      stroke(positionDist,this.x,this.y);
-        break;
-    case 'cyan':
-      stroke(this.x,positionDist,this.y);
-        break;
-    case 'yellow':
-      stroke(this.y,this.x,positionDist);
-        break;
-    default:
-      stroke(avgPosition,avgPosition,avgPosition);
+      stroke(this.y, 0,this.x,this.opac);
+    break;
+    case 'blue':
+      stroke(0, this.x,this.y,this.opac);
+    break;
   }
-  strokeWeight(4);
+
+  strokeWeight(this.stroke);
   noFill();
-  ellipse(this.x,this.y,24,24);
+  ellipse(this.x,this.y,this.r);
 
 
   }
-}
-function MinusDecrease(num) {
-var product = -1*((((num-10)/2)**(0.5))*0.5)
-return product
-}
-function PosDecrease(num) {
-var product = (((490-num)/2)**0.5)*0.5
-return product
 }
