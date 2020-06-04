@@ -3,22 +3,22 @@ body {
   font-family: sans-serif;
 }
 a:hover {
-  background-color: #800;
+  background-color: #612;
 }
 a {
-  border: 1px solid #600;
+  border: 1px solid #622;
   padding: 10px;
   display: inline-block;
   max-width: 200px;
   color: #fff;
-  background-color: #600;
+  background-color: #622;
   border-radius: 10px;
   text-decoration: none;
   text-align: center;
 
 }
 .base:hover {
-background-color: #800;
+background-color: #600;
 }
 canvas {
 margin: auto;
@@ -41,7 +41,7 @@ text-align: center;
   right: 0;
 }
 .base {
-border: 1px solid
+border: 1px solid;
 padding: 10px;
 display: inline-block;
 border-radius: 10px;
@@ -51,45 +51,102 @@ max-width: 200px;
 color: #000;
 }
 .P1 {
-  border: 1px solid #900;
-  background-color: #900;
+  border: 1px solid #944;
+  background-color: #944;
 }
 .P1:hover {
-background-color: #f00;
-}
-.P2 {
-    border: 1px solid #b83;
-    background-color: #b83;
+background-color: #c55;
 }
 
+.P2 {
+    border: 1px solid #a64;
+    background-color: #a64;
+}
 .P2:hover {
-background-color: #f80;
+background-color: #c53;
 }
 .P3 {
-    border: 1px solid #ca3;
-    background-color: #ca3;
+    border: 1px solid #b85;
+    background-color: #b85;
 }
+
 .P3:hover {
-background-color: #ff0;
+background-color: #f85;
 }
 .P4 {
-    border: 1px solid #8c2;
-    background-color: #8c2;
+    border: 1px solid #ca5;
+    background-color: #ca5;
 }
 .P4:hover {
-background-color: #bf0;
+background-color: #fb7;
 }
 .P5 {
-    border: 1px solid #3b0;
-    background-color: #3b0;
+    border: 1px solid #8c6;
+    background-color: #8c6;
 }
 .P5:hover {
-background-color: #4f0;
+background-color: #bf5;
 }
+.P6 {
+    border: 1px solid #5b5;
+    background-color: #5b5;
+}
+.P6:hover {
+background-color: #5f5;
+}
+
 .P0 {
-    border: 1px solid #609;
-    background-color: #609;
+    border: 1px solid #538;
+    background-color: #538;
 }
 .P0:hover {
-background-color: #909;
+background-color: #528;
+}
+
+label {
+color: #fff;
+}
+.select {
+  margin: 10px 0px 10px 0;
+  position: relative;
+  display: inline-block;
+  width: auto;
+  color: #000;
+}
+
+.select select:hover {
+background-color: #34b;
+border: 1px solid #34b;
+
+}
+.select select {
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  padding: .5rem 1.5rem .5rem .1rem;
+  line-height: 1;
+  color: #000;
+  background-color: #67b;
+  border: 1px solid #67b;
+  border-radius: .25rem;
+  cursor: pointer;
+  outline: 0;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.select:after {
+  position: absolute;
+  top: 50%;
+  right: .5rem;
+  display: inline-block;
+  content: "";
+  width: 0;
+  height: 0;
+  margin-top: -.15rem;
+  pointer-events: none;
+  border-top: .35rem solid;
+  border-right: .35rem solid transparent;
+  border-bottom: .35rem solid transparent;
+  border-left: .35rem solid transparent;
 }
